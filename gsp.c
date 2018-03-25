@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>
-
-void skipBOM(FILE *);
+#include <>
 
 int main(int argc, char *argv[]) {
 	
@@ -38,29 +37,14 @@ int main(int argc, char *argv[]) {
 		return 0;
 	
 	FILE *dict = fopen(dictPath, "r");
-	
-	char three[3]
-	if (!skipBOM(f, three)) {
-		printf("[ERROR]: sophisticated programming error\n");
-	}
-	
-	int in;
-	while ((in = fgetc(dict)) != EOF) {
-		
-		
+
+	int cp;
+	while ((cp = getcp(file)) != EOF) {
 		
 	}
-	
 	
 	fclose(dict);
 	
 	return 0;
-}
-
-bool skipBOM(FILE *f, char three[3]) {
-	
-	fgets(three, 3, f);
-	return three == 0xEF && three[1] == 0xBB && three[2] == 0xBF;
-	
 }
 
