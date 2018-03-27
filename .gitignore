@@ -1,3 +1,6 @@
-*.exe 
-test.* 
+*.exe
+todo*
+test* 
 *.gch 
+*.o
+*.dll

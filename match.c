@@ -8,10 +8,8 @@ void loadconfig(void);
 
 
 void loadconfig(void) {
-	int *a[10] = malloc(10 * sizeof(int *));
 	FILE *f = fopen("itoa.conf", "r");
 	for (int i = 0; i < 10; i++)
-		a[i] = utf8_readline(f);
+		map[i] = utf8_readline(f);
 	fclose(f);
-	return a;
 }

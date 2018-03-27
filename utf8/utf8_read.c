@@ -4,14 +4,14 @@
 
 #define MAXBUF 1000
 
-int getmap[4] = {0x3F, 0x1F, 0x0F, 0x07};
-int putmap[4] = {0x00, 0x06, 0x0C, 0x12};
-int buffer[MAXBUF];
+static const int getmap[4] = {0x3F, 0x1F, 0x0F, 0x07};
+static const int putmap[4] = {0x00, 0x06, 0x0C, 0x12};
+static int buffer[MAXBUF];
 
-int require(int);
-int skipBOM(FILE *);
-int with_space(int);
-int with_newline(int);
+static int require(int);
+static int skipBOM(FILE *);
+static int with_space(int);
+static int with_newline(int);
 
 int utf8_read(FILE *file) {
 	int c = fgetc(file);
