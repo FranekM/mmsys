@@ -10,5 +10,4 @@ void utf8_write(FILE *, int);
 void utf8_writeline(FILE *, int *);
 void utf8_writeword(FILE *, int *);
 
-int isWhitespace(int code);
-int isPunctation(int code);
+int utf8_iswhitespace(int code);

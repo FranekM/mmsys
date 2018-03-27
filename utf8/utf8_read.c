@@ -12,6 +12,7 @@ static int require(int);
 static int skipBOM(FILE *);
 static int with_space(int);
 static int with_newline(int);
+static int *utf8_bufread(FILE *, int (*)(int));
 
 int utf8_read(FILE *file) {
 	int c = fgetc(file);
@@ -49,7 +50,7 @@ int *utf8_readline(FILE *file) {
 }
 
 int with_space(int code) {
-	return isWhitespace(code);
+	return utf8_iswhitespace(code);
 }
 
 int with_newline(int code) {

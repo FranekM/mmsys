@@ -1,6 +1,6 @@
 #include "utf8.h"
 
-int isWhitespace(int code) {
+int utf8_iswhitespace(int code) {
 	if (code == 0x20)
 		return 1;
 	if (code >= 0x09 && code <= 0x0D)
