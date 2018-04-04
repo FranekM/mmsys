@@ -27,4 +27,24 @@ int padd(List, int *);
 int *pget(List, int);
 void initList(List, const char[]);
 
+#define TNODESIZE sizeof(tnode)
+#define TREESIZE sizeof(tree)
+
+typedef struct tnode {
+	struct tnode *left;
+	struct tnode *right;
+	int key;
+	int value;
+} tnode, *tNode;
+
+typedef struct tree {
+	tNode root;
+	int size;
+} tree, *Tree;
+
+int tput(Tree, int, int);
+int tget(Tree, int);
+void initTree(Tree);
+int isexact();
+
 #endif
