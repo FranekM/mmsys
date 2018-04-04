@@ -5,43 +5,25 @@
 #include "collections.h"
 #include "match.h"
 
-#define MAXITERATION 100
-
-static void swap(Numb *, int, int);
 static int islast(Numb);
-static int *map[10];
+static Tree map;
 
-int match(int letter, Numb *numbs, int n) {
-	int newlen = n;
+void match(int letter, Numb *numbs, int n) {
+	int mapped = tget(map, letter);
+	if (!isexact())
+		return;
 	while (--n >= 0) {
-		//printf("\ndigit: %d\n", get(numbs[n]->number, numbs[n]->pos));
-		int *row = map[get(numbs[n]->number, numbs[n]->pos)];
-		for (int i = 0; row[i] != '\0' && i < MAXITERATION; i++) {
-			//printf("%d, %d | ", letter, row[i]);
-			if (letter == row[i]) {
-				//printf("%d LETTER MATCHED!\n", get(numbs[n]->number, numbs[n]->pos));
-				(numbs[n]->pos)++;
-				if (islast(numbs[n])) {
-					newlen--;
-					swap(numbs, n, newlen);
-					//printf("WORD MATCHED!\n");
-				}
-				break;
-			}
-		}
-		//printf("\n");
+		int digit = get(numbs[n]->number, numbs[n]->pos);
+		if (digit == mapped)
+			(numbs[n]->pos)++;
+		else
+			numbs[n]->exclude = 1;
+		//printf("%d %d\n", numbs[n]->pos, numbs[n]->number->size);
 	}
-	return newlen;
-}
-
-void swap(Numb *tab, int a, int b) {
-	Numb c = tab[a];
-	tab[a] = tab[b];
-	tab[b] = c;
 }
 
 int islast(Numb numb) {
-	return numb->pos >= numb->number->size;
+	return numb->pos == numb->number->size;
 }
 
 int startsWith(int *word, int *start) {
@@ -62,15 +44,14 @@ int endsWith(int *word, int *end) {
 }
 
 void process(int *word, Numb *numbs, int n) {
-	int newlen = n;
 	for (int i = 0; i < word[i] != '\0'; i++)
-		newlen = match(word[i], numbs, newlen);
-	if (newlen == n)
-		free(word);
-	for (int i = 0; i < n; i++)
+		match(word[i], numbs, n);
+	for (int i = 0; i < n; i++) {
+		if (!(numbs[i]->exclude) && islast(numbs[i]))
+			padd(numbs[i]->result, word);
+		numbs[i]->exclude = 0;
 		numbs[i]->pos = 0;
-	for (int i = newlen; i < n; i++)
-		padd(numbs[i]->result, word);
+	}
 }
 
 void initNumb(Numb numb) {
@@ -80,12 +61,21 @@ void initNumb(Numb numb) {
 	initList(result, "int *");
 	numb->number = number;
 	numb->result = result;
+	numb->exclude = 0;
 	numb->pos = 0;
 }
 
 void loadconfig() {
+	map = malloc(TREESIZE);
+	initTree(map);
 	FILE *f = fopen("itoa.conf", "r");
-	for (int i = 0; i < 10; i++)
-		map[i] = utf8_readline(f);
+	int *line;
+	int n = 0;
+	while ((line = utf8_readline(f)) != NULL) {
+		for (int i = 0; line[i] != '\0'; i++)
+			tput(map, line[i], n);	
+		free(line);
+		n++;	
+	}
 	fclose(f);
 }

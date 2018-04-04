@@ -7,6 +7,7 @@
 
 typedef struct numb {
 	int pos;
+	int exclude;
 	List number;
 	List result;
 } numb, *Numb;
@@ -15,7 +16,7 @@ int startsWith(int *, int *);
 int endsWith(int *, int *);
 void process(int *, Numb *, int);
 void loadconfig(void);
-int match(int, Numb *, int);
+void match(int, Numb *, int);
 void initNumb(Numb);
 
 #endif
