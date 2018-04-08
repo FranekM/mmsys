@@ -1,9 +1,1 @@
-*.exe
-todo*
-test* 
-*.gch 
-*.o
-*.dll
-*.txt
-*.html
-bin/*
+bin/

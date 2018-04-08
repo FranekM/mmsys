@@ -1,0 +1,47 @@
+﻿HELP FOR MMSYS (MNEMONIC MAJOR SYSTEM PROGRAM)
+
+To learn more about mnemonic major system read site on wikipedia
+
+0. HOW TO USE MMSYS
+	Program starts form command line (e.g. cmd for Windows or bash for GNU\Linux)
+	Set working directory to that contaning mmsys.exe and run with followinf syntax:
+	mmsys [number]
+	mmsys [number] [number] ...
+	You can insert multiple numbers
+
+1. INCLUDING WORDS DICTIONARY
+	Program needs a dictionary consist of words in gived language.
+	Dictionary is not included by default - it has to be include sepretly.
+	For polish language I recommend free, licenced under GPL and CC BY 4.0: https://sjp.pl/slownik/growy/
+	File should be saved in same directory as mmsys.exe named dict.txt encoded in UTF-8.
+	
+2. CONFIGURATION
+	File itoa.conf keeps configuration for program, it can be modify manually.
+	File consist of 10 lines: 
+		1st file correspond to 0 (consist of letter that 0 is map to), 
+		2nd to 1, 
+		3rd to 2 
+		and so on.
+	No character in file should be repeted - otherwise result is not specyfied.
+	Default configuration came from polish wikipedia site about mnemonic major system (https://pl.wikipedia.org/wiki/Główny_System_Pamięciowy).
+	File should be saved in same directory as mmsys.exe named itoa.conf encoded in UTF-8.
+
+3. OPTIONS
+	-d	specify deictionary other than dict.txt
+	-h	print short help message
+
+4. LICENSE
+	Program is published under GPL 2 and CC BY 4.0 licenses for some more details see LICENSE.txt.
+	GPL 2 (polish) - http://gnu.org.pl/text/licencja-gnu.html
+	GPL 2 (english) - https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+	CC BY 4.0 (polish) - https://creativecommons.org/licenses/by/4.0/deed.pl
+	CC BY 4.0 (english) - https://creativecommons.org/licenses/by/4.0/deed.en
+
+5. EXAMPLES
+	mmsys 1410			find words correspond to 1410
+	mmsys 12 42 1410 5		find words correspond to given numbers
+	mmsys -d myDict.txt 12 5	find words correspond to 12 and 5 using myDict.txt as dictionary
+
+6. HAVE FUN
+	This program does not give 100% warranty to always work properly - it was made in rush.
+	Remember to check output if you need absolut properly results.
