@@ -6,19 +6,29 @@
 
 #define MAXSIZE 100
 
+static void showHelp(void);
+
 int main(int argc, char *argv[]) {
 	
 	char *dictPath = NULL;
 	
 	int c = 0;
-	while ((c = getopt(argc, argv, "d:")) != -1) {
+	while ((c = getopt(argc, argv, "d:h")) != -1) {
 		switch (c) {
 			case 'd':
 				dictPath = optarg;
 				break;
+			case 'h':
+				showHelp();
+				return 0;
 			default:
 				return 1;
 		}
+	}
+
+	if (optind >= argc) {
+		showHelp();
+		return 0;
 	}
 	
 	int n;
@@ -34,7 +44,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	n++;
-	
+
 	if (dictPath == NULL)
 		dictPath = "dict.txt";
 	
@@ -49,6 +59,7 @@ int main(int argc, char *argv[]) {
 	
 	fclose(dict);
 	
+	int total = 0;
 	int charset[] = {'<', 'm', 'e', 't', 'a', ' ', 'c', 'h', 'a', 'r', 's', 'e', 't', '=', '"', 'u', 't', 'f', '-', '8', '"', '>', '\0'};
 	int hr[] = {'<', 'h', 'r', '>', '\0'};
 	int bb[] = {'<', 'b', '>', '\0'};
@@ -67,6 +78,7 @@ int main(int argc, char *argv[]) {
 		for (int j = 0; j < rs; j++) {
 			utf8_writeword(res, pget(numbs[i]->result, j));
 			utf8_write(res, ' ');
+			total++;
 		}
 		utf8_write(res, '\n');
 		utf8_writeword(res, hr);
@@ -75,8 +87,17 @@ int main(int argc, char *argv[]) {
 	
 	fclose(res);
 	
-	printf("%d", n);
+	printf("%d found and saved in results.html", total);
 	
 	return 0;
 }
 
+void showHelp() {
+	printf("Hi, this is a program to encode numbers using mnemonic major system\n");
+	printf("in order to encode some numbers use following syntax:\n\n");
+	printf("\tmmsys [[number] [number] ...]\n");
+	printf("\tmmsys 1410 2018 12 3\n\n");
+	printf("the results will be saved in results.html file\n\n");
+	printf("For more help see HELP.txt\n");
+	printf("Thnaks for using my program - Bartosz Mierzwa");
+}

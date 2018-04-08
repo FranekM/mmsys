@@ -18,7 +18,6 @@ void match(int letter, Numb *numbs, int n) {
 			(numbs[n]->pos)++;
 		else
 			numbs[n]->exclude = 1;
-		//printf("%d %d\n", numbs[n]->pos, numbs[n]->number->size);
 	}
 }
 
